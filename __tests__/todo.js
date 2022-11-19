@@ -4,60 +4,53 @@ let today = new Date().toLocaleDateString("en-CA");
 
 const { all, markAsComplete, add, overdue, dueToday, dueLater } = todoList();
 
-describe("Todolist Test", () => {
+describe("Todo Test Cases", () => {
   beforeAll(() => {
     add({
-      title: "DHV Assignment",
+      title: "Test 1",
       completed: false,
       dueDate: new Date().toLocaleDateString("en-CA"),
     });
   });
 
-  test("Add a new todo ", () => {
-    // expect(all.length).toBe(0);
-
+  test("Add a new todo in list", () => {
     let length = all.length;
-
     add({
-      title: "Learning Python",
+      title: "Test 2",
       completed: false,
       dueDate: new Date().toLocaleDateString("en-CA"),
     });
-
     expect(all.length).toBe(length + 1);
   });
 
-  test("Mark as a completed todo", () => {
+  test("Mark todo as a completed", () => {
     expect(all[0].completed).toBe(false);
     markAsComplete(0);
     expect(all[0].completed).toBe(true);
   });
 
-  test("Test all todos that are overdue", () => {
-    let listOfTodos = overdue();
-
+  test("Test for overdue", () => {
+    let due = overdue();
     expect(
-      listOfTodos.every((todo) => {
+      due.every((todo) => {
         return todo.dueDate < today;
       })
     ).toBe(true);
   });
 
-  test("Test all todos that are dueToday", () => {
-    let listOfTodos = dueToday();
-
+  test("Test for dueToday", () => {
+    let due = dueToday();
     expect(
-      listOfTodos.every((todo) => {
+      due.every((todo) => {
         return todo.dueDate === today;
       })
     ).toBe(true);
   });
 
-  test("Test all todos that are dueLater", () => {
-    let listOfTodos = dueLater();
-
+  test("Test for dueLater", () => {
+    let due = dueLater();
     expect(
-      listOfTodos.every((todo) => {
+      due.every((todo) => {
         return todo.dueDate > today;
       })
     ).toBe(true);
